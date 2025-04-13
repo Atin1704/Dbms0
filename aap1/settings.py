@@ -1,15 +1,14 @@
 import os
-from pathlib import Path
-import dj_database_url  # Make sure this is in your requirements.txt
+import dj_database_url  # Ensure that dj_database_url is in your requirements.txt
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Secret Key (safe default for college project)
-SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-key')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-key')  # You can safely use a default 'dev-key' here for now
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']  # Add your Render URL later for more control
+ALLOWED_HOSTS = ['*']  # Later you will add your Render URL here for production
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -52,14 +51,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'aap1.wsgi.application'
 
-# ✅ Use DATABASE_URL from environment if available
+# Database
+# Use DATABASE_URL from environment if available
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:Dbmstestingaryan@db.tvwkjrwwxzfzjplglwbo.supabase.co:5432/postgres',
-        conn_max_age=600
+        default=os.environ.get('DATABASE_URL', 'postgresql://postgres:Dbmstestingaryan@db.tvwkjrwwxzfzjplglwbo.supabase.co:5432/postgres'),
+        conn_max_age=600  # Keep the connection alive for performance
     )
 }
 
+# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
