@@ -20,6 +20,26 @@ from datetime import datetime
 from .serializers import ComplaintDetailSerializer, FeedbackDetailSerializer, TransactionDetailSerializer
 from .serializers import RegistrationDetailSerializer
 
+
+import requests
+from django.http import JsonResponse
+
+def get_supabase_data(request):
+    SUPABASE_URL = "https://tvwkjrwwxzfzjplglwbo.supabase.co/rest/v1/your_table"
+    SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2d2tqcnd3eHpmempwbGdsd2JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1MjcwNTksImV4cCI6MjA2MDEwMzA1OX0.AmQbyzSXr4s_fHx8QcIk4Bl0xA1dvuyfOPTHUdq8mHU"
+
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}"
+    }
+
+    response = requests.get(SUPABASE_URL, headers=headers)
+
+    if response.status_code == 200:
+        return JsonResponse(response.json(), safe=False)
+    else:
+        return JsonResponse({"error": "Failed to fetch data", "details": response.text}, status=response.status_code)
+
 class SignupView(APIView):
     def post(self, request):
         serializer = UserSignupSerializer(data=request.data)
