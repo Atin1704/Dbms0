@@ -43,3 +43,4 @@ urllib3==2.3.0
 virtualenv==20.30.0
 virtualenv-clone==0.5.7
 virtualenvwrapper==6.1.1
+dj-database-url
