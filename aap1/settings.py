@@ -1,11 +1,11 @@
 import os
+from pathlib import Path  # Add this import for Path
 import dj_database_url  # Ensure that dj_database_url is in your requirements.txt
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Secret Key (safe default for college project)
 SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-key')  # You can safely use a default 'dev-key' here for now
-
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']  # Later you will add your Render URL here for production
